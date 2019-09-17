@@ -1,8 +1,8 @@
 # ProjectGroup-7
 
-1. TITLE: Healthilicious - Personalized Meal Plan 
-   IDEA DESCRIPTION:
-   Due to hectic schedule, it becomes difficult for people to select an ideal meal for their healthy diet and moreover it is difficult for them to know what nutrients are appropriate for their health related goals. The application will ask users about its preferences such as kind of fruits, vegetables and cereals they want to have and amount of nutrients they want to intake. Based on a clustering algorithm different meal plans will be formed into clusters and mapped to users preference and other methods onto one cluster. Users will receive recommendations and on selection of a plan users will receive information such as ingredients, how fast meal can be cooked and its nutritious contents. The application will map on different features and then map on the meal plan.
+1. TITLE: Healthilicious - Personalized Meal Plan
+
+   IDEA DESCRIPTION: Due to hectic schedule, it becomes difficult for people to select an ideal meal for their healthy diet and moreover it is difficult for them to know what nutrients are appropriate for their health related goals. The application will ask users about its preferences such as kind of fruits, vegetables and cereals they want to have and amount of nutrients they want to intake. Based on a clustering algorithm different meal plans will be formed into clusters and mapped to users preference and other methods onto one cluster. Users will receive recommendations and on selection of a plan users will receive information such as ingredients, how fast meal can be cooked and its nutritious contents. The application will map on different features and then map on the meal plan.
    GOAL: Users should have healthy meals according to their body requirements and according to their preferences.
    TECHNOLOGIES: Python
 
