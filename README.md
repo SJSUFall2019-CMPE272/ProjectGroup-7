@@ -8,7 +8,9 @@
    
    TECHNOLOGIES: Python
 
-2. TITLE: Feed-Me-Back
+2. TITLE: Feed-Me-Back conditional APPROVED read below
+
+### I would rather make it an interview preparation app where interview will be scheduled and interviewer will provide feedback which will be analyzed in aggregate for a user. Even survey questions for interviewer should be dynamically generated based on resume and job requirements - talk to me more.. 
    
    IDEA DESCRIPTION: While interviewing candidates, it is necessary that hiring decisions must include clear communication with them. A basic etiquette is to provide a constructive and productive feedbackto the candidates irrespective of whether you hire them or not.  Interviewers will be asked to fill a short survey/feedback form for that candidate. The answers will be recorded and this dataset will be turned into data driven narratives using Natural Language Generation.
 
