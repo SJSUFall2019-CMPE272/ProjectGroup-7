@@ -6,7 +6,7 @@ Everyday thousands of people struggle to find the right job because of which the
 # ARCHITECTURE DIAGRAM
 <img src= "Arch_Diagram272.bmp">
 
-# TECH STACK
+# TECHNOLOGY STACK
 Machine Learning Model : Natural Language Generation using SimpleNLG <br />
 Programming Languages : Java, Python <br />
 Database : MongoDB <br />
