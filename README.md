@@ -11,3 +11,8 @@ Machine Learning Model : Natural Language Generation using SimpleNLG <br />
 Programming Languages : Java, Python <br />
 Database : MongoDB <br />
 Web Development : ReactJS, HTML, CSS
+
+# Feedback
+Professor Ranjan's Feedback:
+
+I would rather make it an interview preparation app where interview will be scheduled and interviewer will provide feedback which will be analyzed in aggregate for a user. Even survey questions for interviewer should be dynamically generated based on resume and job requirements.
