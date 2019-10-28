@@ -10,7 +10,8 @@ Everyday thousands of people struggle to find the right job because of which the
 Machine Learning Model : Natural Language Generation using SimpleNLG <br />
 Programming Languages : Java, Python <br />
 Database : MongoDB <br />
-Web Development : ReactJS, HTML, CSS
+Web Development : ReactJS, HTML, CSS <br/>
+Service : AWS
 
 # Feedback
 Professor Ranjan's Feedback:
