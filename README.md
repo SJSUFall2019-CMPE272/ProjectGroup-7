@@ -6,6 +6,14 @@ Everyday thousands of people struggle to find the right job because of which the
 # ARCHITECTURE DIAGRAM
 <img src= "Arch_Diagram272.bmp">
 
+# TARGET USERS
+Consider a startup company Cohesity who wants to hire someone for the position of Product Manager. The HR of the Cohesity company schedules an interview using the Feed-Me-Back scheduler web application for a candidate named John.
+
+John is interested in this position and uses the Feed-Me-Back scheduler to check interview details that is scheduled on 3rd November 2019 at 10:00 am. 
+
+After John goes through 4 rounds of interview, each interviewer will login to the application portal and will get a survey to fill for John. 
+
+Later, when John will login to the scheduler application he will get a report that will contain his aggregated feedback of all interviews. 
 # TECHNOLOGY STACK
 Machine Learning Model : Natural Language Generation using SimpleNLG <br />
 Programming Languages : Java, Python <br />
