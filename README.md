@@ -14,6 +14,19 @@ John is interested in this position and uses the Feed-Me-Back scheduler to check
 After John goes through 4 rounds of interview, each interviewer will login to the application portal and will get a survey to fill for John. 
 
 Later, when John will login to the scheduler application he will get a report that will contain his aggregated feedback of all interviews. 
+
+# Design Thinking
+
+<b>Candidate</b>
+
+who: Candidate
+
+what: can schedule interview 
+
+wow : gets the detail report of the interview
+
+<img src= "Candidate-Persona.png">
+
 # TECHNOLOGY STACK
 Machine Learning Model : Natural Language Generation using SimpleNLG <br />
 Programming Languages : Java, Python <br />
