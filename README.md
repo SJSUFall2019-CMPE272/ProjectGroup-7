@@ -35,6 +35,8 @@ what: interviews candidates and provides feedback
 
 wow: within few seconds just by selecting answers to few questions and not writing whole paragraphs.
 
+<img src=	"Interviewer_Persona.png">
+  
 # TECHNOLOGY STACK
 Machine Learning Model : Natural Language Generation using SimpleNLG <br />
 Programming Languages : Java, Python <br />
