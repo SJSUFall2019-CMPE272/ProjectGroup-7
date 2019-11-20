@@ -51,14 +51,14 @@ class Topbar extends Component {
               )}
               <MDBCollapse isOpen={this.state.collapse} navbar>
                 <MDBNavbarNav right style={para1}>
-                  <MDBNavItem active>
-                    <MDBNavLink to="#">Features</MDBNavLink>
+                  <MDBNavItem>
+                    <MDBNavLink to="/">Features</MDBNavLink>
                   </MDBNavItem>
                   <MDBNavItem>
-                    <MDBNavLink to="#">Integration</MDBNavLink>
+                    <MDBNavLink to="/integration">Integration</MDBNavLink>
                   </MDBNavItem>{" "}
                   <MDBNavItem>
-                    <MDBNavLink to="#">Login</MDBNavLink>
+                    <MDBNavLink to="/login">Login</MDBNavLink>
                   </MDBNavItem>
                 </MDBNavbarNav>
               </MDBCollapse>
@@ -67,7 +67,7 @@ class Topbar extends Component {
 
           <MDBView src={require("./image.jpg")}>
             <MDBMask
-              overlay="red-light"
+              overlay="purple-light"
               className="flex-center flex-column text-white text-center"
             >
               <br />
@@ -87,27 +87,6 @@ class Topbar extends Component {
             </MDBMask>
           </MDBView>
         </header>
-
-        <main>
-          <MDBContainer className="text-center my-5">
-            <p align="justify">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
-          </MDBContainer>
-        </main>
       </div>
     );
   }
