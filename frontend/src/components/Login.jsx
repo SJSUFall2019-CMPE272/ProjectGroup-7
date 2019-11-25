@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import FontAwesome from 'react-fontawesome'
+import Dropdown from './DropDown.jsx'
+
 import {
   MDBContainer,
   MDBNavbar,
@@ -20,50 +23,35 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      location: [
-      {
-          id: 0,
-          title: 'New York',
-          selected: false,
-          key: 'location'
-      },
-      {
-        id: 1,
-        title: 'Dublin',
-        selected: false,
-        key: 'location'
-      },
-      {
-        id: 2,
-        title: 'California',
-        selected: false,
-        key: 'location'
-      },
-      {
-        id: 3,
-        title: 'Istanbul',
-        selected: false,
-        key: 'location'
-      },
-      {
-        id: 4,
-        title: 'Izmir',
-        selected: false,
-        key: 'location'
-      },
-      {
-        id: 5,
-        title: 'Oslo',
-        selected: false,
-        key: 'location'
-      }
-    ],
+      listOpen: false,
+      title : "",
+    headerTitle: this.props.title,
+    company: "",
       collapse: false,
       isSignedIn: false,
+      role: [
+          {
+              id: 0,
+              title: 'Admin',
+              selected: false,
+              key: 'role'
+          },
+          {
+            id: 1,
+            title: 'Interviewer',
+            selected: false,
+            key: 'role'
+          },
+          {
+            id: 2,
+            title: 'Candidate',
+            selected: false,
+            key: 'role'
+          }
+        ],
 
     };
     this.onClick = this.onClick.bind(this);
-
   }
 
   onClick() {
@@ -75,14 +63,58 @@ class Login extends Component {
   onSuccess() {
   this.setState({
     isSignedIn: true
-  })
-}
+    })
+  }
+
+  handleClickOutside(){
+  this.setState({
+    listOpen: false
+    })
+  }
+
+  login(response) {
+    //console.log("Google Response: "+JSON.stringify(response));
+    console.log(sessionStorage.getItem('company'));
+    //call Login API with{
+        //"name":"response.name",
+        //"email":"response.email"
+        //"company":"",
+        //"usertype":""}
+  }
+
+  resetThenSet = (id, key) => {
+    let temp = JSON.parse(JSON.stringify(this.state[key]))
+    temp.forEach(item => item.selected = false);
+    temp[id].selected = true;
+    this.setState({
+      [key]: temp,
+      title: temp[id].title
+    });
+  }
+
+  handleChange = (name) => {
+    this.setState({
+      company: name
+    });
+  }
+
   render() {
+    const{list} = this.props
+    const{listOpen, headerTitle} = this.state
     const responseGoogle = (response) => {
-      console.log("Google Response: "+JSON.stringify(response));
+      if(!response.error)
+        this.login(response)
+
+      
+
     }
     const bgPink = { backgroundColor: "#e91e63" };
     const container = { height: 1300 };
+    let drop = '';
+    if(this.state.title == "Admin")
+        drop = true;
+    else
+      drop = false;
     return (
       <div>
         <Router>
@@ -120,25 +152,25 @@ class Login extends Component {
               />
             </td>
             <td>
-              <div className="dd-wrapper">
-                <div className="dd-header">
-                  <div className="dd-header-title"></div>
-                </div>
-                <ul className="dd-list">
-                  <li className="dd-list-item">Admin</li>
-                  <li className="dd-list-item">Interviewer</li>
-                  <li className="dd-list-item">Candidate</li>
-                </ul>
-              </div>
-              <div className="App">
-                <h1>LOGIN WITH GOOGLE</h1>
-                <GoogleLogin
-                  clientId="873380339585-lp7se9eau76buen9oa0787e285tpr42k.apps.googleusercontent.com" //CLIENTID NOT CREATED YET
-                  buttonText="LOGIN WITH GOOGLE"
-                  onSuccess={responseGoogle}
-                  onFailure={responseGoogle}
+              <h3>Login with Google</h3>
+              <form>
+                <Dropdown
+                  title="Login as"
+                  list={this.state.role}
+                  resetThenSet={this.resetThenSet}
                 />
-              </div>
+
+                {drop ? <Results /> : null}
+
+                <div className="App">
+                  <GoogleLogin
+                    clientId="873380339585-lp7se9eau76buen9oa0787e285tpr42k.apps.googleusercontent.com" //CLIENTID NOT CREATED YET
+                    buttonText="LOGIN WITH GOOGLE"
+                    onSuccess={responseGoogle}
+                    onFailure={responseGoogle}
+                  />
+                </div>
+              </form>
             </td>
           </tr>
         </table>
@@ -151,8 +183,31 @@ const para = {
 };
 const btn = {
   color: "#bd0d39",
-
   fontFamily: "Arial, Helvetica, sans-serif",
   fontStyle: "normal"
+};
+
+class Results extends React.Component{
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      company : ""
+    }
+  }
+    
+    render() {
+        const list = this.props
+        return (
+            <div className="company"><input type="text" value={this.state.company} placeholder="Company" type="text" name="company" onChange={this.handleChange} noValidate/> </div>
+        );
+    }
+
+    handleChange = (name) => {
+      this.setState({
+        company: name.target.value
+      });
+      sessionStorage.setItem('company',name.target.value);
+    }
 };
 export default Login;
