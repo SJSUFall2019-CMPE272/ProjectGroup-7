@@ -13,16 +13,57 @@ import {
 import { BrowserRouter as Router } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-
+import GoogleLogin from 'react-google-login';
 import "mdbreact/dist/css/mdb.css";
 
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      collapse: false
+      location: [
+      {
+          id: 0,
+          title: 'New York',
+          selected: false,
+          key: 'location'
+      },
+      {
+        id: 1,
+        title: 'Dublin',
+        selected: false,
+        key: 'location'
+      },
+      {
+        id: 2,
+        title: 'California',
+        selected: false,
+        key: 'location'
+      },
+      {
+        id: 3,
+        title: 'Istanbul',
+        selected: false,
+        key: 'location'
+      },
+      {
+        id: 4,
+        title: 'Izmir',
+        selected: false,
+        key: 'location'
+      },
+      {
+        id: 5,
+        title: 'Oslo',
+        selected: false,
+        key: 'location'
+      }
+    ],
+      collapse: false,
+      isSignedIn: false,
+
     };
     this.onClick = this.onClick.bind(this);
+
   }
 
   onClick() {
@@ -31,7 +72,15 @@ class Login extends Component {
     });
   }
 
+  onSuccess() {
+  this.setState({
+    isSignedIn: true
+  })
+}
   render() {
+    const responseGoogle = (response) => {
+      console.log("Google Response: "+JSON.stringify(response));
+    }
     const bgPink = { backgroundColor: "#e91e63" };
     const container = { height: 1300 };
     return (
@@ -71,49 +120,25 @@ class Login extends Component {
               />
             </td>
             <td>
-              <Form>
-                <Form.Group controlId="username">
-                  <Form.Label>Username</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="Enter Username"
-                    name="username"
-                    //value=" "
-                    //onChange={this.handleChange}
-                    required
-                  />
-                  <Form.Text className="text-muted">
-                    We'll never share your details with anyone else.
-                  </Form.Text>
-                </Form.Group>
-                <br></br>
-
-                <Form.Group controlId="password">
-                  <Form.Label>Password</Form.Label>
-                  <Form.Control
-                    type="password"
-                    placeholder="Password"
-                    name="password"
-                    //value={this.state.password}
-                    //onChange={this.handleChange}
-                    required
-                  />
-                </Form.Group>
-                <br></br>
-
-                <Button
-                  variant="light"
-                  style={btn}
-                  //onClick={this.handleLogin}
-                >
-                  Submit
-                </Button>
-              </Form>
-
-              <br />
-              <p style={para}>
-                New to Feed-Me-Back? <a href="./signup">Signup</a>
-              </p>
+              <div className="dd-wrapper">
+                <div className="dd-header">
+                  <div className="dd-header-title"></div>
+                </div>
+                <ul className="dd-list">
+                  <li className="dd-list-item">Admin</li>
+                  <li className="dd-list-item">Interviewer</li>
+                  <li className="dd-list-item">Candidate</li>
+                </ul>
+              </div>
+              <div className="App">
+                <h1>LOGIN WITH GOOGLE</h1>
+                <GoogleLogin
+                  clientId="873380339585-lp7se9eau76buen9oa0787e285tpr42k.apps.googleusercontent.com" //CLIENTID NOT CREATED YET
+                  buttonText="LOGIN WITH GOOGLE"
+                  onSuccess={responseGoogle}
+                  onFailure={responseGoogle}
+                />
+              </div>
             </td>
           </tr>
         </table>
