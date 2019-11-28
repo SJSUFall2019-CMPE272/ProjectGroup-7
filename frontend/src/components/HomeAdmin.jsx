@@ -24,7 +24,7 @@ class HomeAdmin extends Component {
     let data = {
       email: email
     };
-    let url = "http://localhost:3001/api/feedback/getPositionDetails";
+    let url = "http://localhost:5000/getPositionDetails";
     /* axios
       .get(url, data)
       .then(response => {
