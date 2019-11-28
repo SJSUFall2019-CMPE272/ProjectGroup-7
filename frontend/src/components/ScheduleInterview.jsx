@@ -46,7 +46,7 @@ class ScheduleInterview extends Component {
     let data = {
       email: email
     };
-    let url = "http://localhost:3001/api/feedback/getPositionDetails";
+    let url = "http://localhost:5000/getPositionDetails";
     /* axios
       .get(url, data)
       .then(response => {
@@ -60,7 +60,7 @@ class ScheduleInterview extends Component {
   handleSubmit(event) {
     event.preventDefault();
     //console.log("inside handlesubmit");
-    var url = "http://localhost:3001/api/feedback/scheduleInterview";
+    var url = "http://localhost:5000/scheduleInterview";
 
     if (this.state.candidateemail == "" || this.state.candidatename == "") {
       swal("All Details required!", "", "warning");
