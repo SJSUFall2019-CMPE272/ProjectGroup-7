@@ -38,7 +38,7 @@ class HomeStudent extends Component {
     let data = {
       email: email
     };
-    let url = "http://localhost:3001/api/feedback/getCandidate";
+    let url = "http://localhost:5000/getCandidate";
     /*axios
       .get(url, data)
       .then(response => {
@@ -72,7 +72,7 @@ class HomeStudent extends Component {
       data: data
     };
     console.log("sending....", temp);
-    let url = "http://localhost:3001/api/feedback/schedule";
+    let url = "http://localhost:5000/schedule";
     /*axios
       .get(url, temp)
       .then(response => {
