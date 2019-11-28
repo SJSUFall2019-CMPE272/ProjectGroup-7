@@ -53,6 +53,20 @@ class Login extends Component {
             key: 'role'
           }
         ],
+      gender: [
+          {
+              id: 0,
+              title: 'Male',
+              selected: false,
+              key: 'gender'
+          },
+          {
+            id: 1,
+            title: 'Female',
+            selected: false,
+            key: 'gender'
+          }
+        ],
     };
     this.onClick = this.onClick.bind(this);
 
@@ -76,14 +90,16 @@ class Login extends Component {
   }
 
   login(response) {
-    //console.log("Google Response: "+JSON.stringify(response));
+    console.log("Google Response: "+JSON.stringify(response));
     console.log(localStorage.getItem('company'));
+    console.log("Gender: "+localStorage.getItem('gender'));
     console.log(response);
     let data = {
       name: response.profileObj.name,
       email: response.profileObj.email,
       usertype: this.state.title,
-      company: localStorage.getItem('company')
+      company: localStorage.getItem('company'),
+      gender: localStorage.getItem('gender')
     }
     let url = "http://localhost:3001/api/feedback/login";
      /*axios
@@ -120,10 +136,21 @@ class Login extends Component {
     });
   }
 
+  resetGender = (id, key) => {
+    let temp = JSON.parse(JSON.stringify(this.state[key]))
+    temp.forEach(item => item.selected = false);
+    temp[id].selected = true;
+    this.setState({
+      [key]: temp,
+      title: temp[id].title
+    });
+  }
+
   handleChange = (name) => {
     this.setState({
-      company: name
+      gender: name.target.value
     });
+    localStorage.setItem('gender',name.target.value);
   }
 
   render() {
@@ -188,14 +215,22 @@ class Login extends Component {
 
                 {drop ? <Results /> : null}
 
+                // <Dropdown
+                //   title="Select Gender"
+                //   list={this.state.gender}
+                //   resetThenSet={this.resetGender}
+                // />
+
                 <div className="App">
                   <GoogleLogin
                     clientId="873380339585-lp7se9eau76buen9oa0787e285tpr42k.apps.googleusercontent.com"
+                    scope="https://www.googleapis.com/auth/userinfo.profile"
                     buttonText="LOGIN WITH GOOGLE"
                     onSuccess={responseGoogle}
                     onFailure={responseGoogle}
                   />
                 </div>
+                
               </form>
             </td>
           </tr>
