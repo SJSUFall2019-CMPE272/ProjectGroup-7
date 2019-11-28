@@ -37,7 +37,7 @@ class ViewCandidates extends Component {
       jobid: jobid
     };
     //console.log("jobid is ", jobid);
-    let url = "http://localhost:3001/api/feedback/getCandidateDetails";
+    let url = "http://localhost:5000/getCandidateDetails";
     /* axios
       .get(url, data)
       .then(response => {
