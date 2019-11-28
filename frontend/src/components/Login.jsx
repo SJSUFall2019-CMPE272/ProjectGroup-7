@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import FontAwesome from 'react-fontawesome'
 import Dropdown from './DropDown.jsx'
-
+import Table from "react-bootstrap/Table";
 import {
   MDBContainer,
   MDBNavbar,
@@ -13,18 +13,22 @@ import {
   MDBNavLink,
   MDBIcon
 } from "mdbreact";
+import "mdbreact/dist/css/mdb.css";
 import { BrowserRouter as Router } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import GoogleLogin from 'react-google-login';
 import "mdbreact/dist/css/mdb.css";
 
+let p = "";
 class Login extends Component {
   constructor(props) {
     super(props);
+    p = props;
     this.state = {
-      listOpen: false,
-      title : "",
+      
+    listOpen: false,
+    title : "",
     headerTitle: this.props.title,
     company: "",
       collapse: false,
@@ -49,11 +53,10 @@ class Login extends Component {
             key: 'role'
           }
         ],
-
     };
     this.onClick = this.onClick.bind(this);
-  }
 
+  }
   onClick() {
     this.setState({
       collapse: !this.state.collapse
@@ -61,25 +64,50 @@ class Login extends Component {
   }
 
   onSuccess() {
-  this.setState({
-    isSignedIn: true
+    this.setState({
+      isSignedIn: true
     })
   }
 
   handleClickOutside(){
-  this.setState({
-    listOpen: false
+    this.setState({
+      listOpen: false
     })
   }
 
   login(response) {
     //console.log("Google Response: "+JSON.stringify(response));
-    console.log(sessionStorage.getItem('company'));
-    //call Login API with{
-        //"name":"response.name",
-        //"email":"response.email"
-        //"company":"",
-        //"usertype":""}
+    console.log(localStorage.getItem('company'));
+    console.log(response);
+    let data = {
+      name: response.profileObj.name,
+      email: response.profileObj.email,
+      usertype: this.state.title,
+      company: localStorage.getItem('company')
+    }
+    let url = "http://localhost:3001/api/feedback/login";
+     /*axios
+      .get(url, data)
+      .then(response => {
+        console.log("response is..........", response.data);
+        localStorage.setItem("name":data.name);
+        localStorage.setItem("email":data.email);
+        localStorage.setItem("company":data.company);
+        localStorage.setItem("company":data.usertype);
+        if(data.usertype == "admin")
+          this.p.history.push("/homeAdmin");
+        else if(data.usertype == "interviewer")
+          this.p.history.push("/homeInterviewer");
+        else if(data.usertype == "candidate")
+          this.p.history.push("/homeStudent");
+      })
+      .catch(err => console.log(err));*/
+      if(data.usertype == "Admin")
+          p.history.push("/homeAdmin");
+        else if(data.usertype == "Interviewer")
+          p.history.push("/homeInterviewer");
+        else if(data.usertype == "Candidate")
+          p.history.push("/homeStudent");
   }
 
   resetThenSet = (id, key) => {
@@ -103,16 +131,14 @@ class Login extends Component {
     const{listOpen, headerTitle} = this.state
     const responseGoogle = (response) => {
       if(!response.error)
-        this.login(response)
-
-      
-
+      this.login(response)
     }
     const bgPink = { backgroundColor: "#e91e63" };
     const container = { height: 1300 };
+      
     let drop = '';
     if(this.state.title == "Admin")
-        drop = true;
+      drop = true;
     else
       drop = false;
     return (
@@ -151,8 +177,8 @@ class Login extends Component {
                 alt="avatar"
               />
             </td>
-            <td>
-              <h3>Login with Google</h3>
+            <td style={{background:"#f9f9f9",padding:"10px"}}>
+              <h3 style={{fontSize:"1.10rem"}}>Log In to schedule an interview and get feedbacks</h3>
               <form>
                 <Dropdown
                   title="Login as"
@@ -164,7 +190,7 @@ class Login extends Component {
 
                 <div className="App">
                   <GoogleLogin
-                    clientId="873380339585-lp7se9eau76buen9oa0787e285tpr42k.apps.googleusercontent.com" //CLIENTID NOT CREATED YET
+                    clientId="873380339585-lp7se9eau76buen9oa0787e285tpr42k.apps.googleusercontent.com"
                     buttonText="LOGIN WITH GOOGLE"
                     onSuccess={responseGoogle}
                     onFailure={responseGoogle}
@@ -177,16 +203,9 @@ class Login extends Component {
       </div>
     );
   }
+  
+  
 }
-const para = {
-  fontfamily: "'Helvetica Neue', Helvetica, Arial, sans-serif"
-};
-const btn = {
-  color: "#bd0d39",
-  fontFamily: "Arial, Helvetica, sans-serif",
-  fontStyle: "normal"
-};
-
 class Results extends React.Component{
 
   constructor(props) {
@@ -195,7 +214,7 @@ class Results extends React.Component{
       company : ""
     }
   }
-    
+
     render() {
         const list = this.props
         return (
@@ -207,7 +226,8 @@ class Results extends React.Component{
       this.setState({
         company: name.target.value
       });
-      sessionStorage.setItem('company',name.target.value);
+      localStorage.setItem('company',name.target.value);
     }
 };
+
 export default Login;
