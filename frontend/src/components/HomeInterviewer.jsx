@@ -25,7 +25,7 @@ class HomeInterviewer extends Component {
     let data = {
       email: email
     };
-    let url = "http://localhost:3001/api/feedback/getInterviewerDetails";
+    let url = "http://localhost:5000/getInterviewerDetails";
     /* axios
       .get(url, data)
       .then(response => {

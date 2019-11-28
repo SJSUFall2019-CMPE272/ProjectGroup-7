@@ -101,7 +101,7 @@ class Login extends Component {
       company: localStorage.getItem('company'),
       gender: localStorage.getItem('gender')
     }
-    let url = "http://localhost:3001/api/feedback/login";
+    let url = "http://localhost:5000/login";
      /*axios
       .get(url, data)
       .then(response => {
@@ -180,13 +180,20 @@ class Login extends Component {
               <MDBCollapse isOpen={this.state.collapse} navbar>
                 <MDBNavbarNav right>
                   <MDBNavItem>
-                    <MDBNavLink to="/">Features</MDBNavLink>
+                    <a href="./" style={space}>
+                      Features
+                    </a>
+                    {"    "}
                   </MDBNavItem>
                   <MDBNavItem>
-                    <MDBNavLink to="./integration">Integration</MDBNavLink>
-                  </MDBNavItem>
-                  <MDBNavItem active>
-                    <MDBNavLink to="/login">Login</MDBNavLink>
+                    <a href="./integration" style={space}>
+                      Integration
+                    </a>
+                  </MDBNavItem>{" "}
+                  <MDBNavItem>
+                    <a href="./login" style={space}>
+                      Login
+                    </a>
                   </MDBNavItem>
                 </MDBNavbarNav>
               </MDBCollapse>
@@ -264,5 +271,8 @@ class Results extends React.Component{
       localStorage.setItem('company',name.target.value);
     }
 };
-
+var space = {
+  padding: 20,
+  color: "#ffffff"
+};
 export default Login;

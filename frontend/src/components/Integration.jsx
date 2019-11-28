@@ -44,13 +44,20 @@ class Integration extends Component {
               <MDBCollapse isOpen={this.state.collapse} navbar>
                 <MDBNavbarNav right>
                   <MDBNavItem>
-                    <MDBNavLink to="/">Features</MDBNavLink>
-                  </MDBNavItem>
-                  <MDBNavItem active>
-                    <MDBNavLink to="/integration">Integration</MDBNavLink>
+                    <a href="./" style={space}>
+                      Features
+                    </a>
+                    {"    "}
                   </MDBNavItem>
                   <MDBNavItem>
-                    <MDBNavLink to="/login">Login</MDBNavLink>
+                    <a href="./integration" style={space}>
+                      Integration
+                    </a>
+                  </MDBNavItem>{" "}
+                  <MDBNavItem>
+                    <a href="./login" style={space}>
+                      Login
+                    </a>
                   </MDBNavItem>
                 </MDBNavbarNav>
               </MDBCollapse>
@@ -131,6 +138,10 @@ class Integration extends Component {
     );
   }
 }
+var space = {
+  padding: 20,
+  color: "#ffffff"
+};
 var heading = {
   color: "black"
 };

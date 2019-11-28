@@ -32,7 +32,7 @@ class AssignInterview extends Component {
   handleSubmit(event) {
     event.preventDefault();
     console.log("inside handlesubmit");
-    var url = "http://localhost:3001/api/feedback/assignInterviewer";
+    var url = "http://localhost:5000/assignInterviewer";
 
     if (this.state.candidatesemail == "" || this.state.intervieweremail == "") {
       swal("All Details required!", "", "warning");

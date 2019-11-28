@@ -37,7 +37,7 @@ class GetQuestions extends Component {
       intervieweremail: localStorage.getItem("email")
     };
     //console.log("jobid is ", jobid);
-    let url = "http://localhost:3001/api/feedback/getQuestions";
+    let url = "http://localhost:5000/getQuestions";
     /* axios
       .get(url, data)
       .then(response => {
@@ -146,7 +146,7 @@ class GetQuestions extends Component {
   }
 
   submitForm = (changeEvent) => {
-    let url = "http://localhost:3001/api/feedback/generateFeedbackReport";
+    let url = "http://localhost:5000/generateFeedbackReport";
     let data = {
       email: this.state.email,
       answers: this.state.answers
