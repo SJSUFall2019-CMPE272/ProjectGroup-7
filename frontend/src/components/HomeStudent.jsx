@@ -91,21 +91,32 @@ class HomeStudent extends Component {
   handleReport(e) {
     console.log("inside handle status");
     console.log("the orfer id passed is ", e.target.id);
+    
     let email = e.target.id;
-    /* fetch("http://localhost:3000/api/feedback/downloadReport",{email:email}).then(
-      response => {
-        const filename = response.headers
-          .get("Content-Disposition")
-          .split("filename=")[1];
-        response.blob().then(blob => {
-          let url = window.URL.createObjectURL(blob);
-          let a = document.createElement("a");
-          a.href = url;
-          a.download = filename;
-          a.click();
-        });
-      }
-    );*/
+    let url = 'http://localhost:8080/api/feedback/nlgReportDownload';
+    let data = {
+      //email:email ,
+      email:"kanika.khanna@sjsu.edu",
+      from: "candidate"
+    }
+    axios(url, {
+      method: 'POST',
+      data: data,
+      responseType: 'blob' //Force to receive data in a Blob Format
+      })
+      .then(response => {
+      //Create a Blob from the PDF Stream
+          const file = new Blob(
+            [response.data], 
+            {type: 'application/pdf'});
+      //Build a URL from the file
+          const fileURL = URL.createObjectURL(file);
+      //Open the URL on new Window
+          window.open(fileURL);
+      })
+      .catch(error => {
+          console.log(error);
+      });
   }
   printResponse(status) {
     //const [startDate] = useState(null);
@@ -209,7 +220,7 @@ class HomeStudent extends Component {
   render() {
     let response = {
       name: "Kanika Khanna",
-      status: "pending",
+      status: "completed",
       company: "IBM"
     };
     let display;

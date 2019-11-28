@@ -8,6 +8,7 @@ import axios from "axios";
 import { Redirect } from "react-router-dom";
 import swal from "sweetalert";
 import ListGroup from "react-bootstrap/ListGroup";
+import ButtonToolbar from "react-bootstrap/ButtonToolbar";
 
 class ViewCandidates extends Component {
   constructor(props) {
@@ -21,6 +22,7 @@ class ViewCandidates extends Component {
       completed: [],
       pending: []
     };
+    this.handleReport = this.handleReport.bind(this);
   }
   componentDidMount() {
     const { result } = this.props.location.state;
@@ -114,6 +116,34 @@ class ViewCandidates extends Component {
     //console.log("completed are ", completed);
     //console.log("pending are ", pending);
   }
+  handleReport(e) {
+    console.log("inside handle status");
+    console.log("the orfer id passed is ", e.target.id);
+    let email = e.target.id;
+    let url = 'http://localhost:8080/api/feedback/nlgReportDownload';
+    let data = {
+      email:email ,
+      from: "admin",
+    }
+    axios(url, {
+      method: 'POST',
+      data: data,
+      responseType: 'blob' //Force to receive data in a Blob Format
+      })
+      .then(response => {
+      //Create a Blob from the PDF Stream
+          const file = new Blob(
+            [response.data], 
+            {type: 'application/pdf'});
+      //Build a URL from the file
+          const fileURL = URL.createObjectURL(file);
+      //Open the URL on new Window
+          window.open(fileURL);
+      })
+      .catch(error => {
+          console.log(error);
+      });
+  }
 
   render() {
     /* let completed = [];
@@ -128,7 +158,19 @@ class ViewCandidates extends Component {
           <tr>
             <td width="40%">{completed.name}</td>
             <td width="40%">{completed.email}</td>
-            <td width="40%">Link for report</td>
+            <td width="40%">
+              <ButtonToolbar>
+                <Button
+                  style={{ marginRight: "auto" }}
+                  variant="light"
+                  style={btn}
+                  id={completed.email}
+                  onClick={this.handleReport}
+                >
+                  Download report!
+                </Button>
+              </ButtonToolbar>
+            </td>
           </tr>
         </Table>
       );
@@ -223,5 +265,11 @@ const para1 = {
   margin: 10,
 
   verticalAllign: "middle"
+};
+const btn = {
+  color: "#bd0d39",
+
+  fontFamily: "Arial, Helvetica, sans-serif",
+  fontStyle: "normal"
 };
 export default ViewCandidates;

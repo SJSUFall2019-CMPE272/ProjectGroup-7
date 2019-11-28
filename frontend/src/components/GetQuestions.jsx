@@ -146,7 +146,7 @@ class GetQuestions extends Component {
   }
 
   submitForm = (changeEvent) => {
-    let url = "http://localhost:5000/generateFeedbackReport";
+    let url = "http://localhost:3001/api/feedback/submitAnswers";
     let data = {
       email: this.state.email,
       answers: this.state.answers
