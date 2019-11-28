@@ -52,13 +52,20 @@ class Topbar extends Component {
               <MDBCollapse isOpen={this.state.collapse} navbar>
                 <MDBNavbarNav right style={para1}>
                   <MDBNavItem>
-                    <MDBNavLink to="/">Features</MDBNavLink>
+                    <a href="./" style={space}>
+                      Features
+                    </a>
+                    {"    "}
                   </MDBNavItem>
                   <MDBNavItem>
-                    <MDBNavLink to="/integration">Integration</MDBNavLink>
+                    <a href="./integration" style={space}>
+                      Integration
+                    </a>
                   </MDBNavItem>{" "}
                   <MDBNavItem>
-                    <MDBNavLink to="/login">Login</MDBNavLink>
+                    <a href="./login" style={space}>
+                      Login
+                    </a>
                   </MDBNavItem>
                 </MDBNavbarNav>
               </MDBCollapse>
@@ -97,5 +104,9 @@ var para = {
 };
 var para1 = {
   fontSize: 25
+};
+var space = {
+  padding: 20,
+  color: "#ffffff"
 };
 export default Topbar;
