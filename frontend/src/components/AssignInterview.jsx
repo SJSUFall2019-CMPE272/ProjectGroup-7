@@ -32,7 +32,7 @@ class AssignInterview extends Component {
   handleSubmit(event) {
     event.preventDefault();
     console.log("inside handlesubmit");
-    var url = "http://localhost:5000/assignInterviewer";
+    var url = "http://ec2-54-67-61-55.us-west-1.compute.amazonaws.com/assignInterviewer";
 
     if (this.state.candidatesemail == "" || this.state.intervieweremail == "") {
       swal("All Details required!", "", "warning");
@@ -48,17 +48,17 @@ class AssignInterview extends Component {
       axios
         .post(url, data)
         .then(response => {
-          //console.log("response is..........", response.data);
-          swal("nterview Assigned!", "", "success");
+          console.log("response is..........", response.data);
+          swal("Interview Assigned!", "", "success");
         })
         .catch(err => console.log(err));
     }
   }
   render() {
     let redirectVar = null;
-    /* if (localStorage.getItem("name") == null) {
+     if (localStorage.getItem("name") == null) {
               redirectVar = <Redirect to="/" />;
-            }*/
+            }
     return (
       <div>
         {redirectVar}

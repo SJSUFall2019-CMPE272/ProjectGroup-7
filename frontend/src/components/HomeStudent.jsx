@@ -18,8 +18,8 @@ class HomeStudent extends Component {
     this.state = {
       name: localStorage.getItem("name"),
       email: localStorage.getItem("email"),
-      company: "IBM",
-      pname: "Hiring Manager",
+      jobid: "",
+      position: " ",
       report: "",
       status: "awaited",
       date: new Date(),
@@ -38,19 +38,19 @@ class HomeStudent extends Component {
     let data = {
       email: email
     };
-    let url = "http://localhost:5000/getCandidate";
-    /*axios
-      .get(url, data)
+    let url = "http://ec2-54-67-61-55.us-west-1.compute.amazonaws.com/getcandidate";
+    axios
+      .post(url, data)
       .then(response => {
         console.log("response is..........", response.data);
         this.setState({
-          company:reponse.data.company,
-          pname:response.data.pname,
-          status:response.data.status,
-          report:response.data.report
+          jobid: response.data.jobid,
+          position: response.data.position,
+          status: response.data.status,
+          email: response.data.email
         });
       })
-      .catch(err => console.log(err));*/
+      .catch(err => console.log(err));
   }
   setStartDate = date => {
     this.setState({
@@ -61,7 +61,7 @@ class HomeStudent extends Component {
   handleSchedule = () => {
     //console.log("date is ", this.state.date);
     let date = this.state.date;
-    let email = localStorage.getItem("email");
+    let email = this.state.email;
     //console.log("file is is ", this.state.selectedFile);
     const data = new FormData();
     data.append("file", this.state.selectedFile);
@@ -72,14 +72,15 @@ class HomeStudent extends Component {
       data: data
     };
     console.log("sending....", temp);
-    let url = "http://localhost:5000/schedule";
-    /*axios
-      .get(url, temp)
+    let url = "http://ec2-54-67-61-55.us-west-1.compute.amazonaws.com/schedule";
+    axios
+      .post(url, temp)
       .then(response => {
         console.log("response is ", response.data);
-        swal("Successfully Uploaded!", "", "success");
+        swal("Interview Scheduled!", "", "success");
       })
-      .catch(err => console.log(err));*/
+      .catch(err => console.log(err));
+    swal("Interview Scheduled !", "", "success");
   };
   onChangeHandler = event => {
     console.log(event.target.files[0]);
@@ -91,31 +92,29 @@ class HomeStudent extends Component {
   handleReport(e) {
     console.log("inside handle status");
     console.log("the orfer id passed is ", e.target.id);
-    
+
     let email = e.target.id;
-    let url = 'http://localhost:8080/api/feedback/nlgReportDownload';
+    let url = "http://ec2-3-18-220-46.us-east-2.compute.amazonaws.com/api/feedback/nlgReportDownload";
     let data = {
       //email:email ,
-      email:"kanika.khanna@sjsu.edu",
+      email: email,
       from: "candidate"
-    }
+    };
     axios(url, {
-      method: 'POST',
+      method: "POST",
       data: data,
-      responseType: 'blob' //Force to receive data in a Blob Format
-      })
+      responseType: "blob" //Force to receive data in a Blob Format
+    })
       .then(response => {
-      //Create a Blob from the PDF Stream
-          const file = new Blob(
-            [response.data], 
-            {type: 'application/pdf'});
-      //Build a URL from the file
-          const fileURL = URL.createObjectURL(file);
-      //Open the URL on new Window
-          window.open(fileURL);
+        //Create a Blob from the PDF Stream
+        const file = new Blob([response.data], { type: "application/pdf" });
+        //Build a URL from the file
+        const fileURL = URL.createObjectURL(file);
+        //Open the URL on new Window
+        window.open(fileURL);
       })
       .catch(error => {
-          console.log(error);
+        console.log(error);
       });
   }
   printResponse(status) {
@@ -124,14 +123,13 @@ class HomeStudent extends Component {
       return (
         <Table bordered>
           <tr>
+            <td style={item}>Your Email : {this.state.email}</td>
+          </tr>
+          <tr>
             <td style={item}>Your Status : {status}</td>
           </tr>
-          <tr>
-            <td style={item}>Company Name : {this.state.company}</td>
-          </tr>
-          <tr>
-            <td style={item}>Position : {this.state.pname}</td>
-          </tr>
+          
+
           <tr>
             {" "}
             <td style={item}>
@@ -188,13 +186,14 @@ class HomeStudent extends Component {
           return (
             <Table bordered>
               <tr>
+                <td style={item}>Your Email : {this.state.email}</td>
+              </tr>
+              <tr>
                 <td style={item}>Your Status : {status}</td>
               </tr>
+              
               <tr>
-                <td style={item}>Company Name : {this.state.company}</td>
-              </tr>
-              <tr>
-                <td style={item}>Position : {this.state.pname}</td>
+                <td style={item}>Position : {this.state.position}</td>
               </tr>
               <tr>
                 <td style={item}>
@@ -203,7 +202,7 @@ class HomeStudent extends Component {
                       style={{ marginRight: "auto" }}
                       variant="light"
                       style={btn}
-                      id={localStorage.getItem("email")}
+                      id={this.state.email}
                       onClick={this.handleReport}
                     >
                       Download Feedback report!
@@ -218,17 +217,17 @@ class HomeStudent extends Component {
     }
   }
   render() {
-    let response = {
+    /*  let response = {
       name: "Kanika Khanna",
       status: "completed",
       company: "IBM"
-    };
+    };*/
     let display;
-
+    let status = this.state.status;
     let redirectVar = null;
-    /* if (localStorage.getItem("name") == null) {
+     if (localStorage.getItem("name") == null) {
           redirectVar = <Redirect to="/" />;
-        }*/
+        }
     return (
       <div>
         {redirectVar}
@@ -242,7 +241,7 @@ class HomeStudent extends Component {
           <tr>
             <td width="400"></td>
             <td style={para} width="700">
-              {this.printResponse(response.status)}
+              {this.printResponse(status)}
             </td>
           </tr>
         </Table>

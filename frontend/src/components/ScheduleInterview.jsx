@@ -46,21 +46,21 @@ class ScheduleInterview extends Component {
     let data = {
       email: email
     };
-    let url = "http://localhost:5000/getPositionDetails";
-    /* axios
-      .get(url, data)
+    let url = "http://ec2-54-67-61-55.us-west-1.compute.amazonaws.com/getPositionDetails";
+    axios
+      .get(url)
       .then(response => {
         console.log("response is..........", response.data);
         this.setState({
-          positions: this.state.positions.concat(response.data)
+          positions: response.data.positions
         });
       })
-      .catch(err => console.log(err));*/
+      .catch(err => console.log(err));
   }
   handleSubmit(event) {
     event.preventDefault();
     //console.log("inside handlesubmit");
-    var url = "http://localhost:5000/scheduleInterview";
+    var url = "http://ec2-54-67-61-55.us-west-1.compute.amazonaws.com/scheduleInterview";
 
     if (this.state.candidateemail == "" || this.state.candidatename == "") {
       swal("All Details required!", "", "warning");
@@ -77,15 +77,16 @@ class ScheduleInterview extends Component {
       axios
         .post(url, data)
         .then(response => {
-          //console.log("response is..........", response.data);
+          console.log("response is..........", response.data);
           swal("Interview Scheduled!", "", "success");
         })
         .catch(err => console.log(err));
+        swal("Interview Scheduled!", "", "success");
     }
   }
   render() {
     let positiond = [];
-    let response = {
+    /*let response = {
       positions: [
         {
           pname: "Hiring manager",
@@ -100,20 +101,20 @@ class ScheduleInterview extends Component {
           jobid: "1234"
         }
       ]
-    };
-    let details_positions = response.positions.map(positions => {
+    };*/
+    let details_positions = this.state.positions.map(positions => {
       //console.log("new position is ", positions.pname);
-      positiond.push(positions.pname);
+      positiond.push(positions.name);
     });
     //console.log("positiond is ", positiond);
     let redirectVar = null;
-    /* if (localStorage.getItem("name") == null) {
+     if (localStorage.getItem("name") == null) {
               redirectVar = <Redirect to="/" />;
 
 
 
               
-            }*/
+            }
     return (
       <div>
         {redirectVar}

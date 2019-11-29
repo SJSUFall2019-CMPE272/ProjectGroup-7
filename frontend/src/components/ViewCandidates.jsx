@@ -39,13 +39,13 @@ class ViewCandidates extends Component {
       jobid: jobid
     };
     //console.log("jobid is ", jobid);
-    let url = "http://localhost:5000/getCandidateDetails";
-    /* axios
-      .get(url, data)
+    let url = "http://ec2-54-67-61-55.us-west-1.compute.amazonaws.com/getCandidateDetails";
+    axios
+      .post(url, data)
       .then(response => {
         console.log("response is..........", response.data);
         this.setState({
-          candidates: this.state.candidates.concat(response.data.candidates)
+          candidates: response.data.candidates
         });
         let candidates = response.data.candidates;
         let completed = [];
@@ -59,12 +59,12 @@ class ViewCandidates extends Component {
           }
         }
         this.setState({
-          completed: this.state.completed.concat(completed),
-          pending: this.state.pending.concat(pending)
+          completed: completed,
+          pending: pending
         });
       })
-      .catch(err => console.log(err));*/
-    let response = {
+      .catch(err => console.log(err));
+    /*let response = {
       candidates: [
         {
           email: "kanika.khanna@gmail.com",
@@ -114,34 +114,32 @@ class ViewCandidates extends Component {
       pending: this.state.pending.concat(pending)
     });
     //console.log("completed are ", completed);
-    //console.log("pending are ", pending);
+    //console.log("pending are ", pending);*/
   }
   handleReport(e) {
     console.log("inside handle status");
     console.log("the orfer id passed is ", e.target.id);
     let email = e.target.id;
-    let url = 'http://localhost:8080/api/feedback/nlgReportDownload';
+    let url = "http://ec2-3-18-220-46.us-east-2.compute.amazonaws.com/api/feedback/nlgReportDownload";
     let data = {
-      email:email ,
-      from: "admin",
-    }
+      email: email,
+      from: "admin"
+    };
     axios(url, {
-      method: 'POST',
+      method: "POST",
       data: data,
-      responseType: 'blob' //Force to receive data in a Blob Format
-      })
+      responseType: "blob" //Force to receive data in a Blob Format
+    })
       .then(response => {
-      //Create a Blob from the PDF Stream
-          const file = new Blob(
-            [response.data], 
-            {type: 'application/pdf'});
-      //Build a URL from the file
-          const fileURL = URL.createObjectURL(file);
-      //Open the URL on new Window
-          window.open(fileURL);
+        //Create a Blob from the PDF Stream
+        const file = new Blob([response.data], { type: "application/pdf" });
+        //Build a URL from the file
+        const fileURL = URL.createObjectURL(file);
+        //Open the URL on new Window
+        window.open(fileURL);
       })
       .catch(error => {
-          console.log(error);
+        console.log(error);
       });
   }
 
@@ -186,9 +184,9 @@ class ViewCandidates extends Component {
       );
     });
     let redirectVar = null;
-    /* if (localStorage.getItem("name") == null) {
+     if (localStorage.getItem("name") == null) {
           redirectVar = <Redirect to="/" />;
-        }*/
+        }
     return (
       <div>
         {" "}

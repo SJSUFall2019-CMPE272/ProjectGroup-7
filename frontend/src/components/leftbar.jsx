@@ -17,6 +17,7 @@ class NavBar extends Component {
     localStorage.removeItem("email");
     localStorage.removeItem("usertype");
     localStorage.removeItem("company");
+    localStorage.removeItem("gender");
   };
   render() {
     let navLogin = null;
