@@ -24,19 +24,20 @@ class HomeAdmin extends Component {
     let data = {
       email: email
     };
-    let url = "http://localhost:5000/getPositionDetails";
-    /* axios
+    let url = "http://ec2-54-67-61-55.us-west-1.compute.amazonaws.com/getPositionDetails";
+    axios
       .get(url, data)
       .then(response => {
         console.log("response is..........", response.data);
         this.setState({
-          positions: this.state.positions.concat(response.data)
+          positions: response.data.positions
         });
       })
-      .catch(err => console.log(err));*/
+      .catch(err => console.log(err));
   }
 
   printSkills(skills) {
+    console.log("skills are ", skills);
     return skills.map(d => {
       return (
         <td width="100" style={item1}>
@@ -48,7 +49,10 @@ class HomeAdmin extends Component {
   }
 
   render() {
-    let response = {
+    console.log("inside render......", this.state.positions[0]);
+    //let details_positions = this.state.positions;
+    // console.log("details_position is", details_positions);
+    /* let response = {
       positions: [
         {
           pname: "Hiring manager",
@@ -63,18 +67,26 @@ class HomeAdmin extends Component {
           jobid: "1234"
         }
       ]
-    };
-    let details_positions = response.positions.map(positions => {
+    };*/
+    let details_positions = this.state.positions.map(positions => {
       return (
-        <Table bordered width="900">
+        <Table bordered width="1200">
           <tr>
-            <td width="80%" class="font-weight-bold" style={item}>
-              Position Name: {positions.pname}
+            <td style={item} width="10%">
+              Position Name:
+            </td>
+            <td width="90%" style={item1}>
+              {" "}
+              {positions.name}
             </td>
           </tr>
           <tr>
-            <td width="900" class="font-weight-bold" style={item1}>
-              Position Description: {positions.desc}
+            <td style={item1} width="10%">
+              Position Description:
+            </td>
+            <td width="90%" style={item1}>
+              {" "}
+              {positions.desc}
             </td>
           </tr>
           <tr>
@@ -110,9 +122,9 @@ class HomeAdmin extends Component {
       );
     });
     let redirectVar = null;
-    /* if (localStorage.getItem("name") == null) {
+    if (localStorage.getItem("name") == null) {
           redirectVar = <Redirect to="/" />;
-        }*/
+        }
     return (
       <div>
         {redirectVar}
@@ -170,12 +182,12 @@ const para = {
 };
 const item = {
   textAlign: "left",
-  fontSize: 25,
+  fontSize: 15,
   fontfamily: "Arial, Helvetica, sans-serif"
 };
 const item1 = {
   textAlign: "left",
-  fontSize: 18,
+  fontSize: 10,
   fontfamily: "Arial, Helvetica, sans-serif"
 };
 export default HomeAdmin;

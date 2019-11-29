@@ -17,7 +17,8 @@ class GetQuestions extends Component {
       answers: [],
       email: "",
       selectedOption : "1",
-      radio:[]
+      radio:[],
+      j:0
     };
   }
   componentDidMount() {
@@ -37,46 +38,24 @@ class GetQuestions extends Component {
       intervieweremail: localStorage.getItem("email")
     };
     //console.log("jobid is ", jobid);
-    let url = "http://localhost:5000/getQuestions";
-    /* axios
-      .get(url, data)
+    let url = "http://ec2-54-67-61-55.us-west-1.compute.amazonaws.com/getQuestions";
+     axios
+      .post(url, data)
       .then(response => {
         console.log("response is..........", response.data);
         this.setState({
-          skills: this.state.candidates.concat(response.data.skills)
+          skills: response.data.result[0].skills
         });
+        
       })
-      .catch(err => console.log(err));*/
-    let response = {
-      skills:["Java","MongoDB","Kafka","React"]
-    };
-    this.setState({
-      skills: this.state.skills.concat(response.skills)
-    });
-    let radio = []
-    let i=1;
-    let options
-    let questions_answers = response.skills.map(skills => {
-      
-      options = []
-      i = 1;
-      while(i < 6){
-          let data={
-            value: i
-          };
-        options.push(data);
-        i=i+1
-      }
-      let merge = {
-        skills: skills,
-        options: options
-      }
-      radio.push(merge);
-    });
-    console.log(radio);
-    this.setState({
-      radio: radio
-    });
+      .catch(err => console.log(err));
+    // let response = {
+    //   skills:["Java","MongoDB","Kafka","React"]
+    // };
+    // this.setState({
+    //   skills: this.state.skills.concat(response.skills)
+    // });
+    
   }
 
   updateAnswers(skills, value){
@@ -127,44 +106,58 @@ class GetQuestions extends Component {
     console.log(this.state.radio);
   }
 
-  handleOptionChange = (changeEvent) => {
-    let details_completed = this.state.answers.map(answers => {
-      if(answers.skills == changeEvent.target.row){
-        answers.value = changeEvent.target.value
-        return
-      }
-    });
-    let data = {
-      skills: changeEvent.target.row,
-      value: changeEvent.target.value
-    }
-    console.log(changeEvent.target.row)
-    this.setState({
-      answers: this.state.answers.concat(data),
-      selectedOption: changeEvent.target.value
-    });
-  }
-
   submitForm = (changeEvent) => {
-    let url = "http://localhost:3001/api/feedback/submitAnswers";
+    let url = "http://ec2-54-67-61-55.us-west-1.compute.amazonaws.com/SubmitAnswers";
     let data = {
       email: this.state.email,
       answers: this.state.answers
     }
     console.log(data)
-    /* axios
-      .get(url, data)
+    axios
+      .post(url, data)
       .then(response => {
         console.log("response is..........", response.data);
-        
+        swal("Answers Submitted", "", "success");
       })
-      .catch(err => console.log(err));*/
+      .catch(err => console.log(err));
   }
 
   render() {
     let skills = this.state.skills;
     let redirectVar = null;
-    let radio = this.state.radio;
+    
+    let radio = []
+    let i=1;
+    let options
+
+    if(this.state.j==0 && this.state.skills.length != 0){
+      this.state.skills.push('Communication Skills');
+        this.state.skills.push('Fit for the team');
+        this.state.skills.push('Company Knowledge');
+        this.state.j = 1;
+
+    }
+
+    let questions_answers = this.state.skills.map(skills => {
+      
+      options = []
+      i = 1;
+      while(i < 6){
+          let data={
+            value: i
+          };
+        options.push(data);
+        i=i+1
+      }
+      let merge = {
+        skills: skills,
+        options: options
+      }
+      radio.push(merge);
+    });
+    console.log(radio);
+    this.state.radio = radio;
+    
     return (
       <div>
         {" "}

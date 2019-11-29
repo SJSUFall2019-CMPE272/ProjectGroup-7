@@ -1,7 +1,7 @@
 .dd-wrapper{
   user-select: none;
   position: relative;
-  width: 222px;
+  width: 300px;
 }
 
   .dd-header{
@@ -14,19 +14,8 @@
     cursor: default;
     position: relative;
     background-color: white;
-  }
-
-  .fa {
-    display: inline-block;
-    font: normal normal normal 14px/1 FontAwesome;
-    font-size: inherit;
-    text-rendering: auto;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  .fa-2x {
-    font-size: 2em;
+    margin-left: 100px;
+    margin-top: 10px;
   }
 
   .dd-header span {
@@ -52,7 +41,6 @@
     border-bottom-left-radius: 3px;
     background-color: white;
     box-shadow: 0 2px 5px -1px rgb(232, 232, 232);
-    font-weight: 700;
     padding: 15px 0;
     max-height: 215px;
     overflow-y: scroll;
@@ -60,17 +48,12 @@
 }
   .dd-list-item{
     width: 100%;
-    font-size: 1.5rem;
     padding: 8px 10px;
     line-height: 1.6rem;
     cursor: default;
     display: inline-block;
     white-space: nowrap;
     text-overflow: ellipsis;
-}
-
-.fa-angle-down:before {
-    content: "\f107";
 }
 
 form {
@@ -101,9 +84,7 @@ input::placeholder {
   font-weight: lighter;
   color: #999;
 }
-.fa-angle-up:before {
-    content: "\f106";
-}
+
     &.selected{
       color: white;
       background-color: #FFCC01;

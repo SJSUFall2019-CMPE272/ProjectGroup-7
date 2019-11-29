@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import FontAwesome from 'react-fontawesome'
 import Dropdown from './DropDown.jsx'
 import Table from "react-bootstrap/Table";
+import axios from "axios";
 import {
   MDBContainer,
   MDBNavbar,
@@ -48,7 +49,7 @@ class Login extends Component {
           },
           {
             id: 2,
-            title: 'Candidate',
+            title: 'Student',
             selected: false,
             key: 'role'
           }
@@ -56,13 +57,13 @@ class Login extends Component {
       gender: [
           {
               id: 0,
-              title: 'Male',
+              title: 'male',
               selected: false,
               key: 'gender'
           },
           {
             id: 1,
-            title: 'Female',
+            title: 'female',
             selected: false,
             key: 'gender'
           }
@@ -97,33 +98,29 @@ class Login extends Component {
     let data = {
       name: response.profileObj.name,
       email: response.profileObj.email,
-      usertype: this.state.title,
+      usertype: this.state.title.toLowerCase(),
       company: localStorage.getItem('company'),
       gender: localStorage.getItem('gender')
     }
-    let url = "http://localhost:5000/login";
-     /*axios
-      .get(url, data)
+    console.log(data);
+    let url = "http://ec2-54-67-61-55.us-west-1.compute.amazonaws.com/login";
+     axios
+      .post(url, data)
       .then(response => {
         console.log("response is..........", response.data);
-        localStorage.setItem("name":data.name);
-        localStorage.setItem("email":data.email);
-        localStorage.setItem("company":data.company);
-        localStorage.setItem("company":data.usertype);
+        localStorage.setItem("name",data.name);
+        localStorage.setItem("email",data.email);
+        localStorage.setItem("company",data.company);
+        localStorage.setItem("usertype",data.usertype.toLowerCase());
+        console.log()
         if(data.usertype == "admin")
-          this.p.history.push("/homeAdmin");
-        else if(data.usertype == "interviewer")
-          this.p.history.push("/homeInterviewer");
-        else if(data.usertype == "candidate")
-          this.p.history.push("/homeStudent");
-      })
-      .catch(err => console.log(err));*/
-      if(data.usertype == "Admin")
           p.history.push("/homeAdmin");
-        else if(data.usertype == "Interviewer")
+        else if(data.usertype == "interviewer")
           p.history.push("/homeInterviewer");
-        else if(data.usertype == "Candidate")
+        else if(data.usertype == "student")
           p.history.push("/homeStudent");
+      })
+      .catch(err => console.log(err));
   }
 
   resetThenSet = (id, key) => {
@@ -141,9 +138,9 @@ class Login extends Component {
     temp.forEach(item => item.selected = false);
     temp[id].selected = true;
     this.setState({
-      [key]: temp,
-      title: temp[id].title
+      [key]: temp
     });
+    localStorage.setItem('gender',temp[id].title);
   }
 
   handleChange = (name) => {
@@ -220,16 +217,17 @@ class Login extends Component {
                   resetThenSet={this.resetThenSet}
                 />
 
+                <Dropdown
+                  title="Gender"
+                  list={this.state.gender}
+                  resetThenSet={this.resetGender}
+                />
+
                 {drop ? <Results /> : null}
 
-                // <Dropdown
-                //   title="Select Gender"
-                //   list={this.state.gender}
-                //   resetThenSet={this.resetGender}
-                // />
-
-                <div className="App">
+                <div className="App" style={{marginTop:"10px"}}>
                   <GoogleLogin
+
                     clientId="873380339585-lp7se9eau76buen9oa0787e285tpr42k.apps.googleusercontent.com"
                     scope="https://www.googleapis.com/auth/userinfo.profile"
                     buttonText="LOGIN WITH GOOGLE"

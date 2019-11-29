@@ -18,27 +18,29 @@ class HomeInterviewer extends Component {
       candidates: []
     };
   }
+
   componentDidMount() {
+    
     console.log("component did mount");
     let email = this.state.email;
     console.log("email is..", email);
     let data = {
       email: email
     };
-    let url = "http://localhost:5000/getInterviewerDetails";
-    /* axios
-      .get(url, data)
+    let url = "http://ec2-54-67-61-55.us-west-1.compute.amazonaws.com/getInterviewerDetails";
+    axios
+      .post(url, data)
       .then(response => {
         console.log("response is..........", response.data);
         this.setState({
-          candidates: this.state.candidates.concat(response.data)
+          candidates: response.data.candidates
         });
       })
-      .catch(err => console.log(err));*/
+      .catch(err => console.log(err));
   }
 
   showButton(candidates) {
-    if(candidates.status == "completed"){
+    if(candidates.status == "scheduled"){
       return (
         <tr>
           <td width="900" style={item1}>
@@ -64,24 +66,24 @@ class HomeInterviewer extends Component {
   }
 
   render() {
-    let status = "";
-    let response = {
-      candidates: [
-        {
-          email: "shraddha@gmail.com",
-          name: "Shraddha",
-          status: "completed",
-          jobid: "123"
-        },
-        {
-          email: "kanika@gmail.com",
-          name: "Kanika",
-          status: "scheduled",
-          jobid: "1234"
-        }
-      ]
-    };
-    let details_candidates = response.candidates.map(candidates => {
+    console.log("inside render......", this.state.candidates [0]);
+    // let response = {
+    //   candidates: [
+    //     {
+    //       email: "shraddha@gmail.com",
+    //       name: "Shraddha",
+    //       status: "completed",
+    //       jobid: "123"
+    //     },
+    //     {
+    //       email: "kanika@gmail.com",
+    //       name: "Kanika",
+    //       status: "scheduled",
+    //       jobid: "1234"
+    //     }
+    //   ]
+    // };
+    let details_candidates = this.state.candidates.map(candidates => {
 
       return (
         <Table bordered width="900">
@@ -107,9 +109,9 @@ class HomeInterviewer extends Component {
       )}
     );
     let redirectVar = null;
-    /* if (localStorage.getItem("name") == null) {
+     if (localStorage.getItem("name") == null) {
           redirectVar = <Redirect to="/" />;
-        }*/
+        }
     return (
       <div>
         {redirectVar}
